@@ -1,10 +1,15 @@
-project(GameProject)
+cmake_minimum_required(VERSION 3.1)
 
-add_executable(
-    Game
-    src/main.cpp
-)
+project(Game)
 
-find_package(SFML 2 REQUIRED graphics)
+## If you want to link SFML statically
+set(SFML_STATIC_LIBRARIES TRUE)
 
-include_directories(include ${SFML_INCLUDE_DIR})
+# set this one somehwere
+# set(SFML_DIR "<sfml root prefix>/lib/cmake/SFML")
+
+find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
+
+add_executable(Game src/main.cpp)
+
+target_link_libraries(Game sfml-graphics sfml-audio)
