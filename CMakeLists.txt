@@ -11,10 +11,24 @@ set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 find_package(GTest REQUIRED)
 
-include_directories(${GTEST_INCLUDE_DIR})
+include_directories(
+    ${CMAKE_SOURCE_DIR}/include
+    ${GTEST_INCLUDE_DIR}
+)
 
-add_executable(Game src/main.cpp)
-add_executable(RunTests src/first_tests.cpp)
+add_executable(
+    Game
+    src/main.cpp
+    include/Game.h
+    src/Game.cpp
+)
+
+add_executable(
+    RunTests
+    include/Game.h
+    src/Game.cpp
+    src/test/GameTest.cpp
+)
 
 target_link_libraries(Game sfml-graphics sfml-audio)
-target_link_libraries(RunTests ${GTEST_LIBRARY} ${GTEST_MAIN_LIBRARY})
+target_link_libraries(RunTests sfml-graphics sfml-audio ${GTEST_LIBRARY} ${GTEST_MAIN_LIBRARY})
