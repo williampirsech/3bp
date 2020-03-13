@@ -1,19 +1,18 @@
 #pragma once
 
+#include "Movable.h"
 #include "SFML/Graphics.hpp"
-
-using Coord = sf::Vector2i;
 
 class Game {
     public:
     
     Game(void);
     
+    void Draw(sf::Drawable&);
+    
     void init(void);
     void run(void);
-    Coord getPlayerPosition(void);
-    void setPlayerPosition(int,int);
+
     private:
     sf::RenderWindow window;
-    Coord playerPosition;
 };

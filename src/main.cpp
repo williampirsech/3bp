@@ -8,6 +8,7 @@ int main() {
     Game g;
 
     g.init();
+    g.run();
     
     return EXIT_SUCCESS;
 }

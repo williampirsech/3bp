@@ -8,7 +8,7 @@ set(SFML_STATIC_LIBRARIES TRUE)
 # set this one somehwere
 # set(SFML_DIR "<sfml root prefix>/lib/cmake/SFML")
 
-find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
+find_package(SFML 2.5.1 COMPONENTS graphics audio REQUIRED)
 find_package(GTest REQUIRED)
 
 include_directories(
@@ -21,13 +21,23 @@ add_executable(
     src/main.cpp
     include/Game.h
     src/Game.cpp
+    include/Player.h
+    src/Player.cpp
+    include/Util.h
+    include/Movable.h
+    src/Movable.cpp
 )
 
 add_executable(
     RunTests
     include/Game.h
     src/Game.cpp
-    src/test/GameTest.cpp
+    src/test/PlayerTests.cpp
+    include/Player.h
+    src/Player.cpp
+    include/Util.h
+    include/Movable.h
+    src/Movable.cpp
 )
 
 target_link_libraries(Game sfml-graphics sfml-audio)
