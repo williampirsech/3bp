@@ -21,8 +21,6 @@ add_executable(
     src/main.cpp
     include/Game.h
     src/Game.cpp
-    include/Player.h
-    src/Player.cpp
     include/Util.h
     include/Movable.h
     src/Movable.cpp
@@ -39,8 +37,6 @@ add_executable(
     include/Game.h
     src/Game.cpp
     src/test/PlayerTests.cpp
-    include/Player.h
-    src/Player.cpp
     include/Util.h
     include/Movable.h
     src/Movable.cpp

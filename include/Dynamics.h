@@ -11,7 +11,7 @@ class Dynamics {
     std::vector<Movable*> getMovables() const noexcept;
     void addNonMassive(Movable&);
     void addMassive(MassiveMovable&);
-    void incrementSystem(const TimeDelta) noexcept;
+    void incrementSystem(const TimeDelta) const noexcept;
     private:
     std::vector<Movable*> movables;
     std::vector<MassiveMovable*> massives;

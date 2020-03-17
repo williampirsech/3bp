@@ -35,12 +35,16 @@ void Game::run() {
     auto pT2 = std::make_shared<sf::CircleShape>(80);
     MassiveMovable planet(pT,0.005);
     MassiveMovable sun(pT2,0.01);
+    
     pT->setFillColor(sf::Color(255,255,255));
     pT2->setFillColor(sf::Color(255,255,255));
+    
     movement.setPosition(player,0.35,0.35);
     movement.setVelocity(player,0.1,0);
+    
     movement.setPosition(sun, 0.6,0.6);
     movement.setVelocity(sun,0,0);
+    
     movement.setPosition(planet, 0.1,0.1);
     movement.setVelocity(planet,0.1,-0.1);
 
