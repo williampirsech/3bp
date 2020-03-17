@@ -9,7 +9,6 @@ set(SFML_STATIC_LIBRARIES TRUE)
 # set(SFML_DIR "<sfml root prefix>/lib/cmake/SFML")
 
 find_package(SFML 2.5.1 COMPONENTS graphics audio REQUIRED)
-find_package(GTest REQUIRED)
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
@@ -32,21 +31,4 @@ add_executable(
     src/Dynamics.cpp
 )
 
-add_executable(
-    RunTests
-    include/Game.h
-    src/Game.cpp
-    src/test/PlayerTests.cpp
-    include/Util.h
-    include/Movable.h
-    src/Movable.cpp
-    include/MassiveMovable.h
-    src/MassiveMovable.cpp
-    include/ScreenMovement.h
-    src/ScreenMovement.cpp
-    include/Dynamics.h
-    src/Dynamics.cpp
-)
-
 target_link_libraries(Game sfml-graphics sfml-audio)
-target_link_libraries(RunTests sfml-graphics sfml-audio ${GTEST_LIBRARY} ${GTEST_MAIN_LIBRARY})
