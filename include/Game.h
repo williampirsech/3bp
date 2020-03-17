@@ -1,6 +1,10 @@
 #pragma once
 
+#include "Util.h"
 #include "Movable.h"
+#include "MassiveMovable.h"
+#include "ScreenMovement.h"
+#include "Dynamics.h"
 #include "SFML/Graphics.hpp"
 
 class Game {
@@ -15,4 +19,6 @@ class Game {
 
     private:
     sf::RenderWindow window;
+    ScreenMovement movement;
+    Dynamics dynamics;
 };

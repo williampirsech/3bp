@@ -2,14 +2,19 @@
 
 #include "SFML/Graphics.hpp"
 #include <math.h>
+#include <memory>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <utility>
 
 // Should probably wrap in a namespace Util::
 
 using Coordinate = sf::Vector2f;
 using Angle = float;
 using Velocity = sf::Vector2f;
-
-// should have a constexpr cos, sin table to draw from
+using TimeDelta = float;
+using Mass = float;
 
 constexpr double PI() { return acos(-1); }
 constexpr double PI2() { return 2*PI(); }

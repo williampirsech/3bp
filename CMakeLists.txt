@@ -26,6 +26,12 @@ add_executable(
     include/Util.h
     include/Movable.h
     src/Movable.cpp
+    include/MassiveMovable.h
+    src/MassiveMovable.cpp
+    include/ScreenMovement.h
+    src/screenMovement.cpp
+    include/Dynamics.h
+    src/Dynamics.cpp
 )
 
 add_executable(
@@ -38,6 +44,12 @@ add_executable(
     include/Util.h
     include/Movable.h
     src/Movable.cpp
+    include/MassiveMovable.h
+    src/MassiveMovable.cpp
+    include/ScreenMovement.h
+    src/ScreenMovement.cpp
+    include/Dynamics.h
+    src/Dynamics.cpp
 )
 
 target_link_libraries(Game sfml-graphics sfml-audio)
