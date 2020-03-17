@@ -1,2 +1,2 @@
 # Game
-This is supposed to be a game.
+Need to think of a name!
