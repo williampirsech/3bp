@@ -6,6 +6,8 @@
 #include "ScreenMovement.h"
 #include "Dynamics.h"
 #include "SFML/Graphics.hpp"
+#include "FuelMeter.h"
+#include "DirectionMeter.h"
 
 class Game {
     public:
@@ -18,7 +20,9 @@ class Game {
     void run(void);
 
     private:
+    sf::Font font;
     sf::RenderWindow window;
+    sf::Texture directionTexture;
     ScreenMovement movement;
     Dynamics dynamics;
 };

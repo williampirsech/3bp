@@ -6,14 +6,27 @@ ScreenMovement::ScreenMovement(const sf::Window& window)
 
 const Coordinate ScreenMovement::getPosition(const Movable& movable) const noexcept {
     Coordinate result(movable.pShape->getPosition());
-    result.x = result.x/window.getSize().x;
-    result.y = result.y/window.getSize().y;
+    Coordinate org(movable.pShape->getOrigin());
+    result.x = (result.x)/600;
+    result.y = (result.y)/600;
     
     return result;
 }
 
 void ScreenMovement::setPosition(Movable& movable, const float x, const float y) const noexcept {
+    movable.pShape->setPosition(x*600, y*600);
+}
+
+void ScreenMovement::setRelativePosition(Movable& movable, const float x, const float y) const noexcept {
     movable.pShape->setPosition(x*window.getSize().x, y*window.getSize().y);
+}
+
+void ScreenMovement::setRelativeSize(Movable& movable, const float x, const float y) const noexcept {
+    auto gb=movable.pShape->getGlobalBounds();
+    movable.pShape->setScale(
+        x/(gb.width/window.getSize().x),
+        y/(gb.height/window.getSize().y)
+    );
 }
 
 void ScreenMovement::setRotation(Movable& movable, const Angle angle) const noexcept {
@@ -31,8 +44,8 @@ void ScreenMovement::rotate(Movable& movable, const TimeDelta dt, Angle delta) c
 
 void ScreenMovement::moveForward(Movable& movable, const TimeDelta dt) const noexcept {
     movable.pShape->move(
-        dt*movable.velocity.x*window.getSize().x,
-        dt*movable.velocity.y*window.getSize().y
+        dt*movable.velocity.x*600,
+        dt*movable.velocity.y*600
     );
 }
 

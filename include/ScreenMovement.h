@@ -14,6 +14,8 @@ class ScreenMovement {
     const Coordinate getPosition(const Movable&) const noexcept;
     
     void setPosition(Movable&, const float, const float) const noexcept;
+    void setRelativePosition(Movable&, const float, const float) const noexcept;
+    void setRelativeSize(Movable&, const float, const float) const noexcept;
     void setRotation(Movable&,const Angle) const noexcept;
     void setVelocity(Movable&, const double, const double) const noexcept;
     void rotate(Movable&, const TimeDelta, const Angle) const noexcept;

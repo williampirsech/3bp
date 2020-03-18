@@ -18,23 +18,38 @@ void Game::init()
     settings.antialiasingLevel = 8;
     window.create(sf::VideoMode(1067,600), "Game",sf::Style::Default,settings);
     window.setFramerateLimit(60);
+
+    if (!font.loadFromFile("resource/font/arialbd.ttf")) {
+        //std::cout << "Failed to load font" << std::endl;
+    }
+
+    /*if (!directionTexture.loadFromFile("resource/img/arrow.png")) {
+        //std::cout << "Failed to load texture" << std::endl;
+    }*/
 }
 
 void Game::run() {
     //Just a demo
     sf::Clock clock;
     auto pS = std::make_shared<sf::ConvexShape>();
-    Movable player(pS);
+    
     pS->setPointCount(3);
     pS->setPoint(0,sf::Vector2f(0,0));
     pS->setPoint(1,sf::Vector2f(0,6));
     pS->setPoint(2,sf::Vector2f(12,3));
     pS->setFillColor(sf::Color(255,255,255));
 
+    Movable player(pS);
+
+    FuelMeter fuelmeter(window);
+    fuelmeter.show();
+    /*DirectionMeter directionIndicator(window,directionTexture);
+    directionIndicator.update();*/
+
     auto pT = std::make_shared<sf::CircleShape>(20);
     auto pT2 = std::make_shared<sf::CircleShape>(80);
     MassiveMovable planet(pT,0.005);
-    MassiveMovable sun(pT2,0.01);
+    MassiveMovable sun(pT2,0.03);
     
     pT->setFillColor(sf::Color(255,255,255));
     pT2->setFillColor(sf::Color(255,255,255));
@@ -54,14 +69,12 @@ void Game::run() {
     auto viewRatio = viewSize.x/viewSize.y;
     const size_t viewIncrement = 5;
     
-    dynamics.addNonMassive(player);
-    dynamics.addMassive(sun);
-    dynamics.addMassive(planet);
+    dynamics.add(player);
+    dynamics.add(sun);
+    dynamics.add(planet);
 
-    sf::View view(player.getShape().getPosition(),viewSize);
+    sf::View gameView(player.getShape().getPosition(),viewSize);
 
-    window.setView(view);
-    
     while (window.isOpen()) {
         sf::Event e;
         while (window.pollEvent(e)) {
@@ -85,13 +98,13 @@ void Game::run() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract)) {
             viewSize.x += viewRatio*viewIncrement;
             viewSize.y += viewIncrement;
-            view.setSize(viewSize);
+            gameView.setSize(viewSize);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Add)) {
             if (std::min(viewSize.x,viewSize.y) > viewIncrement) {
                 viewSize.x -= viewRatio*viewIncrement;
                 viewSize.y -= viewIncrement;
-                view.setSize(viewSize);
+                gameView.setSize(viewSize);
             }
         }
 
@@ -103,9 +116,18 @@ void Game::run() {
         for (const auto& p : dynamics.getMovables()) {
             window.draw(*p);
         }
-        view.setCenter(player.getShape().getPosition());
-        window.setView(view);
+        gameView.setCenter(player.getShape().getPosition());
 
+        
+        window.setView(window.getDefaultView());
+        fuelmeter.update();
+        
+        window.draw(fuelmeter);
+        //window.draw(directionIndicator);
+
+        window.setView(gameView);
+
+        
         window.display();
     }
 }

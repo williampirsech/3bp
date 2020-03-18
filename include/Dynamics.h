@@ -9,8 +9,8 @@ class Dynamics {
     public:
     explicit Dynamics(const ScreenMovement&);
     std::vector<Movable*> getMovables() const noexcept;
-    void addNonMassive(Movable&);
-    void addMassive(MassiveMovable&);
+    void add(Movable&);
+    void add(MassiveMovable&);
     void incrementSystem(const TimeDelta) const noexcept;
     private:
     std::vector<Movable*> movables;
