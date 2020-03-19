@@ -5,7 +5,7 @@
 
 class FuelMeter : public HUDItem {
     public:
-    FuelMeter(const sf::RenderWindow&);
+    FuelMeter(const sf::RenderTarget&);
     void update() noexcept override;
     void show() noexcept override;
     void hide() noexcept override;
@@ -15,5 +15,5 @@ class FuelMeter : public HUDItem {
     private:
     static constexpr float maxWidth=200, maxHeight=30;
     sf::RectangleShape meter;
-    const sf::RenderWindow& window;
+    const sf::RenderTarget& target;
 };

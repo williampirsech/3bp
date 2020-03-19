@@ -1,13 +1,13 @@
 #include "FuelMeter.h"
 
-FuelMeter::FuelMeter(const sf::RenderWindow& window)
+FuelMeter::FuelMeter(const sf::RenderTarget& target)
     : fuelLeft(1.0)
     , meter(sf::Vector2f(maxWidth,maxHeight))
-    , window(window)
+    , target(target)
     {}
 
 void FuelMeter::update() noexcept {
-    meter.setPosition(xMargin, window.getDefaultView().getSize().y-maxHeight-yMargin);
+    meter.setPosition(xMargin, target.getDefaultView().getSize().y-maxHeight-yMargin);
     meter.setSize(sf::Vector2f(maxWidth*fuelLeft,maxHeight));
 }
 

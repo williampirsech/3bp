@@ -25,7 +25,7 @@ void Dynamics::incrementSystem(const TimeDelta dt) const noexcept {
             if (res.x != 0 && res.y != 0) {
                 float G = other->mass / (res.x*res.x+res.y*res.y);
                 movement.addVelocity(*elem, dt, G*res.x, G*res.y);
-                // Collision detection also goes here?
+                // Collision detection also goes here
             }
         }
         movement.moveForward(*elem,dt); 

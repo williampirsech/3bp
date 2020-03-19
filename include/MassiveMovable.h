@@ -6,5 +6,5 @@
 class MassiveMovable : public Movable {
     public:
     explicit MassiveMovable(const std::shared_ptr<sf::Shape>, const Mass);
-    Mass mass;
+    Mass mass;    
 };

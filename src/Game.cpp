@@ -26,6 +26,11 @@ void Game::init()
     if (!directionTexture.loadFromFile("resource/img/arrow.png")) {
         //std::cout << "Failed to load texture" << std::endl;
     }
+
+    if (!backgroundTexture.loadFromFile("resource/skybox/3.png")) {
+        //std::cout << "Failed to load texture" << std::endl;
+    }
+    background.setTexture(backgroundTexture);
 }
 
 void Game::run() {
@@ -72,6 +77,7 @@ void Game::run() {
     sf::View directionView(player.getShape().getPosition(), sf::Vector2f(100,100));
     directionView.setViewport(sf::FloatRect(0.8f,0.8f,0.2f,0.2f));
 
+    background.setScale(window.getSize().x/background.getGlobalBounds().width,window.getSize().y/background.getGlobalBounds().height);
     FuelMeter fuelmeter(window);
     fuelmeter.show();
     Minimap minimap(window,player,directionView);
@@ -112,15 +118,11 @@ void Game::run() {
 
         window.clear(sf::Color::Black);
         
-        dynamics.incrementSystem(dt);
-        
-        for (const auto& p : dynamics.getMovables()) {
-            window.draw(*p);
-        }
         gameView.setCenter(player.getShape().getPosition());
-
         
         window.setView(window.getDefaultView());
+        
+        window.draw(background);
         fuelmeter.update();
         window.draw(fuelmeter);
         
@@ -128,9 +130,16 @@ void Game::run() {
         minimap.update();
         window.draw(player);
 
-        window.setView(gameView);
-
         
+        dynamics.incrementSystem(dt);
+        
+        window.setView(gameView);
+        
+        for (const auto& p : dynamics.getMovables()) {
+            window.draw(*p);
+        }
+        
+
         window.display();
     }
 }

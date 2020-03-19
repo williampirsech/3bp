@@ -22,7 +22,8 @@ class Game {
     private:
     sf::Font font;
     sf::RenderWindow window;
-    sf::Texture directionTexture;
+    sf::Texture directionTexture, backgroundTexture;
+    sf::Sprite background;
     ScreenMovement movement;
     Dynamics dynamics;
 };
