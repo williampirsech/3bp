@@ -29,11 +29,11 @@ add_executable(
     src/screenMovement.cpp
     include/Dynamics.h
     src/Dynamics.cpp
-    include/HUDItem.h
+    include/IHUDItem.h
     include/FuelMeter.h
     src/FuelMeter.cpp
-    include/DirectionMeter.h
-    src/DirectionMeter.cpp
+    include/Minimap.h
+    src/Minimap.cpp
 )
 
 target_link_libraries(Game sfml-graphics sfml-audio)

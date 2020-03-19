@@ -9,6 +9,6 @@ class HUDItem : public sf::Drawable {
     virtual void update() noexcept = 0;
     virtual void hide() noexcept = 0;
     virtual void show() noexcept = 0;
-    virtual void draw (sf::RenderTarget &target, sf::RenderStates states) const = 0;
     protected:
+    static constexpr float xMargin=30, yMargin=30;
 };

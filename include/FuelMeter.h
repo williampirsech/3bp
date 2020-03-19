@@ -1,7 +1,7 @@
 #include "SFML/graphics.hpp"
 
 #include "Util.h"
-#include "HUDItem.h"
+#include "IHUDItem.h"
 
 class FuelMeter : public HUDItem {
     public:
@@ -13,7 +13,7 @@ class FuelMeter : public HUDItem {
     private:
     float fuelLeft;
     private:
-    static constexpr float maxWidth=200, maxHeight=30, xMargin=30, yMargin=30;
+    static constexpr float maxWidth=200, maxHeight=30;
     sf::RectangleShape meter;
     const sf::RenderWindow& window;
 };

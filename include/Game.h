@@ -7,7 +7,7 @@
 #include "Dynamics.h"
 #include "SFML/Graphics.hpp"
 #include "FuelMeter.h"
-#include "DirectionMeter.h"
+#include "Minimap.h"
 
 class Game {
     public:

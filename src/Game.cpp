@@ -23,9 +23,9 @@ void Game::init()
         //std::cout << "Failed to load font" << std::endl;
     }
 
-    /*if (!directionTexture.loadFromFile("resource/img/arrow.png")) {
+    if (!directionTexture.loadFromFile("resource/img/arrow.png")) {
         //std::cout << "Failed to load texture" << std::endl;
-    }*/
+    }
 }
 
 void Game::run() {
@@ -41,18 +41,13 @@ void Game::run() {
 
     Movable player(pS);
 
-    FuelMeter fuelmeter(window);
-    fuelmeter.show();
-    /*DirectionMeter directionIndicator(window,directionTexture);
-    directionIndicator.update();*/
-
-    auto pT = std::make_shared<sf::CircleShape>(20);
+    auto pT = std::make_shared<sf::CircleShape>(5);
     auto pT2 = std::make_shared<sf::CircleShape>(80);
     MassiveMovable planet(pT,0.005);
     MassiveMovable sun(pT2,0.03);
     
-    pT->setFillColor(sf::Color(255,255,255));
-    pT2->setFillColor(sf::Color(255,255,255));
+    pT->setFillColor(sf::Color::White);
+    pT2->setFillColor(sf::Color::White);
     
     movement.setPosition(player,0.35,0.35);
     movement.setVelocity(player,0.1,0);
@@ -74,6 +69,13 @@ void Game::run() {
     dynamics.add(planet);
 
     sf::View gameView(player.getShape().getPosition(),viewSize);
+    sf::View directionView(player.getShape().getPosition(), sf::Vector2f(100,100));
+    directionView.setViewport(sf::FloatRect(0.8f,0.8f,0.2f,0.2f));
+
+    FuelMeter fuelmeter(window);
+    fuelmeter.show();
+    Minimap minimap(window,player,directionView);
+    minimap.show();
 
     while (window.isOpen()) {
         sf::Event e;
@@ -101,11 +103,10 @@ void Game::run() {
             gameView.setSize(viewSize);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Add)) {
-            if (std::min(viewSize.x,viewSize.y) > viewIncrement) {
+            
                 viewSize.x -= viewRatio*viewIncrement;
                 viewSize.y -= viewIncrement;
                 gameView.setSize(viewSize);
-            }
         }
 
 
@@ -121,9 +122,11 @@ void Game::run() {
         
         window.setView(window.getDefaultView());
         fuelmeter.update();
-        
         window.draw(fuelmeter);
-        //window.draw(directionIndicator);
+        
+        window.setView(directionView);
+        minimap.update();
+        window.draw(player);
 
         window.setView(gameView);
 
