@@ -30,7 +30,6 @@ class MovementMock : public ScreenMovement {
     MOCK_METHOD(void, moveForward, (Movable&, const TimeDelta));
 };
 
-
 // If no objects then incrementing system still works
 TEST_F(DynamicsTests, NoObjects) {
     dynamics.incrementSystem(1);
@@ -97,7 +96,7 @@ TEST_F(DynamicsTests, NoTimeNoChange) {
     ASSERT_EQ(massive2.getShape()->getPosition() , pos2);
 }
 
-// Two masses w/ no init velocity fall through line given by their respective positions
+// Two masses w/ no init velocity fall through line given by their respective initial positions
 TEST_F(DynamicsTests, FallingTrajectory) {
     const auto pos1 = sf::Vector2f(29.1,22.5);
     const auto pos2 = sf::Vector2f(-11.7,9.4);
