@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(Game)
+project(3bp)
 
 ## If you want to link SFML statically
 set(SFML_STATIC_LIBRARIES TRUE)
@@ -13,10 +13,11 @@ find_package(SFML 2.5.1 COMPONENTS graphics audio REQUIRED)
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
     ${GTEST_INCLUDE_DIR}
+    ${GMOCK_ROOT}/include
 )
 
 add_executable(
-    Game
+    3bp
     src/main.cpp
     include/Game.h
     src/Game.cpp
@@ -29,11 +30,33 @@ add_executable(
     src/screenMovement.cpp
     include/Dynamics.h
     src/Dynamics.cpp
-    include/IHUDItem.h
+    include/HUDItem.h
     include/FuelMeter.h
     src/FuelMeter.cpp
     include/Minimap.h
     src/Minimap.cpp
 )
 
-target_link_libraries(Game sfml-graphics sfml-audio)
+add_executable(
+    Test
+    src/RunTests.cpp
+    include/Game.h
+    src/Game.cpp
+    include/Util.h
+    include/Movable.h
+    src/Movable.cpp
+    include/MassiveMovable.h
+    src/MassiveMovable.cpp
+    include/ScreenMovement.h
+    src/screenMovement.cpp
+    include/Dynamics.h
+    src/Dynamics.cpp
+    include/HUDItem.h
+    include/FuelMeter.h
+    src/FuelMeter.cpp
+    include/Minimap.h
+    src/Minimap.cpp
+)
+
+target_link_libraries(3bp sfml-graphics sfml-audio)
+target_link_libraries(Test sfml-graphics sfml-audio ${GTEST_LIBRARY} ${GTEST_MAIN_LIBRARY} ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY})

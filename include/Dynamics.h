@@ -13,6 +13,7 @@ class Dynamics {
     void add(MassiveMovable&);
     void incrementSystem(const TimeDelta) const noexcept;
     private:
+    mutable sf::Vector2f _res;
     std::vector<Movable*> movables;
     std::vector<MassiveMovable*> massives;
     const ScreenMovement& movement;

@@ -9,10 +9,6 @@ Movable::Movable(std::shared_ptr<sf::Shape> ptr) {
     velocity.x = 0; velocity.y = 0;
 }
 
-const sf::Shape& Movable::getShape() const noexcept {
-    return *pShape;
-}
-
-void Movable::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(*pShape);
+std::shared_ptr<sf::Shape> Movable::getShape() const noexcept {
+    return pShape;
 }

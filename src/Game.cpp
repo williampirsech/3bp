@@ -4,7 +4,6 @@
 
 Game::Game(void) 
     : window()
-    , movement(window)
     , dynamics(movement)
 {}
 
@@ -73,8 +72,8 @@ void Game::run() {
     dynamics.add(sun);
     dynamics.add(planet);
 
-    sf::View gameView(player.getShape().getPosition(),viewSize);
-    sf::View directionView(player.getShape().getPosition(), sf::Vector2f(100,100));
+    sf::View gameView(player.getShape()->getPosition(),viewSize);
+    sf::View directionView(player.getShape()->getPosition(), sf::Vector2f(100,100));
     directionView.setViewport(sf::FloatRect(0.8f,0.8f,0.2f,0.2f));
 
     background.setScale(window.getSize().x/background.getGlobalBounds().width,window.getSize().y/background.getGlobalBounds().height);
@@ -115,10 +114,9 @@ void Game::run() {
                 gameView.setSize(viewSize);
         }
 
-
         window.clear(sf::Color::Black);
         
-        gameView.setCenter(player.getShape().getPosition());
+        gameView.setCenter(player.getShape()->getPosition());
         
         window.setView(window.getDefaultView());
         
@@ -128,7 +126,7 @@ void Game::run() {
         
         window.setView(directionView);
         minimap.update();
-        window.draw(player);
+        window.draw(*player.getShape());
 
         
         dynamics.incrementSystem(dt);
@@ -136,10 +134,9 @@ void Game::run() {
         window.setView(gameView);
         
         for (const auto& p : dynamics.getMovables()) {
-            window.draw(*p);
+            window.draw(*(p->getShape()));
         }
         
-
         window.display();
     }
 }

@@ -1,6 +1,6 @@
 #include "Minimap.h"
 
-Minimap::Minimap(const sf::RenderWindow& window, const Movable& player, sf::View& directionView)
+Minimap::Minimap(const sf::RenderTarget& window, const Movable& player, sf::View& directionView)
     : window(window) 
     , player(player)
     , directionView(directionView)
@@ -8,7 +8,7 @@ Minimap::Minimap(const sf::RenderWindow& window, const Movable& player, sf::View
 }
 
 void Minimap::update() noexcept {
-    directionView.setCenter(player.getShape().getPosition());
+    directionView.setCenter(player.getShape()->getPosition());
 }
 
 void Minimap::show() noexcept {
@@ -20,5 +20,5 @@ void Minimap::hide() noexcept {
 }
 
 void Minimap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(player);
+    target.draw(*player.getShape());
 };

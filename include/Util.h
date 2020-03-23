@@ -21,9 +21,6 @@ constexpr double PI2() { return 2*PI(); }
 constexpr double R2D() { return 180/PI(); }
 constexpr double D2R() { return PI()/180; }
 
-// Probably wrong
-inline Angle normalizeAngle(const Angle theta) noexcept {
-    Angle theta0 = fmod(theta,PI2());
-    if (theta0 < 0) theta0 += PI2();
-    return theta0;
+inline float norm(const sf::Vector2f vec) {
+    return sqrt(vec.x*vec.x+vec.y*vec.y);
 }

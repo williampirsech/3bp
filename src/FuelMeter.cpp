@@ -4,10 +4,11 @@ FuelMeter::FuelMeter(const sf::RenderTarget& target)
     : fuelLeft(1.0)
     , meter(sf::Vector2f(maxWidth,maxHeight))
     , target(target)
-    {}
+    {
+        meter.setPosition(xMargin, target.getDefaultView().getSize().y-maxHeight-yMargin);
+    }
 
 void FuelMeter::update() noexcept {
-    meter.setPosition(xMargin, target.getDefaultView().getSize().y-maxHeight-yMargin);
     meter.setSize(sf::Vector2f(maxWidth*fuelLeft,maxHeight));
 }
 

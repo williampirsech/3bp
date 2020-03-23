@@ -1,8 +1,9 @@
 #include "ScreenMovement.h"
 
-ScreenMovement::ScreenMovement(const sf::Window& window)
+/*ScreenMovement::ScreenMovement(const sf::Window& window)
     : window(window)
 {}
+*/
 
 const Coordinate ScreenMovement::getPosition(const Movable& movable) const noexcept {
     Coordinate result(movable.pShape->getPosition());
@@ -17,6 +18,7 @@ void ScreenMovement::setPosition(Movable& movable, const float x, const float y)
     movable.pShape->setPosition(x*600, y*600);
 }
 
+/*
 void ScreenMovement::setRelativePosition(Movable& movable, const float x, const float y) const noexcept {
     movable.pShape->setPosition(x*window.getSize().x, y*window.getSize().y);
 }
@@ -28,6 +30,7 @@ void ScreenMovement::setRelativeSize(Movable& movable, const float x, const floa
         y/(gb.height/window.getSize().y)
     );
 }
+*/
 
 void ScreenMovement::setRotation(Movable& movable, const Angle angle) const noexcept {
     movable.pShape->setRotation(angle);

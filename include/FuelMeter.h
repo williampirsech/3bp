@@ -1,7 +1,7 @@
 #include "SFML/graphics.hpp"
 
 #include "Util.h"
-#include "IHUDItem.h"
+#include "HUDItem.h"
 
 class FuelMeter : public HUDItem {
     public:

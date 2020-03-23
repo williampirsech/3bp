@@ -4,13 +4,13 @@
 #include "SFML/graphics.hpp"
 
 
-class Movable : public sf::Drawable {
+class Movable  {
     
     public: 
 
     explicit Movable(const std::shared_ptr<sf::Shape>);
 
-    const sf::Shape& getShape(void) const noexcept;
+    std::shared_ptr<sf::Shape> getShape(void) const noexcept;
 
     protected:
 
@@ -18,8 +18,6 @@ class Movable : public sf::Drawable {
 
     std::shared_ptr<sf::Shape> pShape;
     Velocity velocity;
-
-    void draw (sf::RenderTarget &target, sf::RenderStates states) const override;
 
     friend class ScreenMovement;
 };
