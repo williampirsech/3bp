@@ -1,8 +1,6 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 #include "Dynamics.h"
-#include "ScreenMovement.h"
-#include "MassiveMovable.h"
 #include "Util.h"
 
 // The fixture for testing class Foo.
@@ -12,8 +10,11 @@ class DynamicsTests : public ::testing::Test {
   // be empty.
 
   DynamicsTests()
-    : dynamics(movement)
-  {}
+  {
+      v1 = planetMaker(10,20,sf::Color::White);
+      v2 = planetMaker(10,20,sf::Color::White);
+
+  }
 
   ~DynamicsTests() override {}
 
@@ -22,13 +23,9 @@ class DynamicsTests : public ::testing::Test {
   void TearDown() override {}
 
   Dynamics dynamics;
-  ScreenMovement movement;
+  sf::VertexArray v1,v2;
 };
 
-class MovementMock : public ScreenMovement {
-    MOCK_METHOD(void, addVelocity, (Movable&, const TimeDelta, const float, const float));
-    MOCK_METHOD(void, moveForward, (Movable&, const TimeDelta));
-};
 
 // If no objects then incrementing system still works
 TEST_F(DynamicsTests, NoObjects) {
@@ -41,19 +38,18 @@ TEST_F(DynamicsTests, NoMassNoMovment) {
     const auto pos1 = sf::Vector2f(0,0);
     const auto pos2 = sf::Vector2f(10,10);
 
-    auto cs1 = std::make_shared<sf::CircleShape>(sf::CircleShape(1));
-    Movable movable1(cs1);
-    movable1.getShape()->setPosition(pos1);
-    auto cs2 = std::make_shared<sf::CircleShape>(sf::CircleShape(1));
-    Movable movable2(cs2);
-    movable2.getShape()->setPosition(pos2);
-   
+    
+    Movable movable1(v1);
+    movable1.setPosition(pos1.x,pos1.y);
+    Movable movable2(v2);
+    movable2.setPosition(pos2.x,pos2.y);
+
     dynamics.add(movable1);
     dynamics.add(movable2);
     dynamics.incrementSystem(1);
    
-    ASSERT_EQ(movable1.getShape()->getPosition() , pos1);
-    ASSERT_EQ(movable2.getShape()->getPosition() , pos2);
+    ASSERT_EQ(movable1.getPosition() , pos1);
+    ASSERT_EQ(movable2.getPosition() , pos2);
 }
 
 // If one mass and one non-mass in system then incrementing system changes position of nonmass, while mass remains same position
@@ -61,19 +57,18 @@ TEST_F(DynamicsTests, MassNoMassOneMovement) {
     const auto pos1 = sf::Vector2f(9.6,5.5);
     const auto pos2 = sf::Vector2f(11.3,12.4);
 
-    auto cs1 = std::make_shared<sf::CircleShape>(sf::CircleShape(1));
-    Movable movable1(cs1);
-    movable1.getShape()->setPosition(pos1);
-    auto cs2 = std::make_shared<sf::CircleShape>(sf::CircleShape(1));
-    MassiveMovable massive(cs2,1);
-    massive.getShape()->setPosition(pos2);
+    Movable movable1(v1);
+    movable1.setPosition(pos1.x,pos2.y);
+    Movable massive(v2);
+    massive.setMass(1);
+    massive.setPosition(pos2);
     
     dynamics.add(movable1);
     dynamics.add(massive);
     dynamics.incrementSystem(1);
 
-    ASSERT_NE(movable1.getShape()->getPosition(), pos1);
-    ASSERT_EQ(massive.getShape()->getPosition(), pos2);
+    ASSERT_NE(movable1.getPosition(), pos1);
+    ASSERT_EQ(massive.getPosition(), pos2);
 }
 
 // IF time increment zero then no change
@@ -81,19 +76,19 @@ TEST_F(DynamicsTests, NoTimeNoChange) {
     const auto pos1 = sf::Vector2f(29.1,22.5);
     const auto pos2 = sf::Vector2f(-11.7,9.4);
 
-    auto cs1 = std::make_shared<sf::CircleShape>(sf::CircleShape(1));
-    MassiveMovable massive1(cs1,1);
-    massive1.getShape()->setPosition(pos1);
-    auto cs2 = std::make_shared<sf::CircleShape>(sf::CircleShape(1));
-    MassiveMovable massive2(cs2,1);
-    massive2.getShape()->setPosition(pos2);
+    Movable massive1(v1);
+    massive1.setMass(1);
+    massive1.setPosition(pos1);
+    Movable massive2(v2);
+    massive2.setMass(1);
+    massive2.setPosition(pos2);
 
     dynamics.add(massive1);
     dynamics.add(massive2);
     dynamics.incrementSystem(0);
 
-    ASSERT_EQ(massive1.getShape()->getPosition() , pos1);
-    ASSERT_EQ(massive2.getShape()->getPosition() , pos2);
+    ASSERT_EQ(massive1.getPosition() , pos1);
+    ASSERT_EQ(massive2.getPosition() , pos2);
 }
 
 // Two masses w/ no init velocity fall through line given by their respective initial positions
@@ -102,19 +97,19 @@ TEST_F(DynamicsTests, FallingTrajectory) {
     const auto pos2 = sf::Vector2f(-11.7,9.4);
     const auto vec = pos2-pos1;
 
-    auto cs1 = std::make_shared<sf::CircleShape>(sf::CircleShape(1));
-    MassiveMovable massive1(cs1,0.01);
-    massive1.getShape()->setPosition(pos1);
-    auto cs2 = std::make_shared<sf::CircleShape>(sf::CircleShape(1));
-    MassiveMovable massive2(cs2,0.01);
-    massive2.getShape()->setPosition(pos2);
+    Movable massive1(v1);
+    massive1.setMass(0.01);
+    massive1.setPosition(pos1);
+    Movable massive2(v2);
+    massive2.setMass(0.01);
+    massive2.setPosition(pos2);
 
     dynamics.add(massive1);
     dynamics.add(massive2);
     dynamics.incrementSystem(0.1);
 
-    const auto newpos1 = massive1.getShape()->getPosition();
-    const auto newpos2 = massive2.getShape()->getPosition();
+    const auto newpos1 = massive1.getPosition();
+    const auto newpos2 = massive2.getPosition();
     const auto newvec = newpos2-newpos1;
 
     EXPECT_NE(vec, newvec); // check that the system actually changed

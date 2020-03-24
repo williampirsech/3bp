@@ -16,47 +16,32 @@ include_directories(
     ${GMOCK_ROOT}/include
 )
 
+add_library(
+    3bp-lib
+    include/Util.h
+    include/Movable.h
+    src/Movable.cpp
+    include/Dynamics.h
+    src/Dynamics.cpp
+    include/HUDItem.h
+    include/FuelMeter.h
+    src/FuelMeter.cpp
+    include/Minimap.h
+    src/Minimap.cpp
+)
+
 add_executable(
     3bp
     src/main.cpp
     include/Game.h
     src/Game.cpp
-    include/Util.h
-    include/Movable.h
-    src/Movable.cpp
-    include/MassiveMovable.h
-    src/MassiveMovable.cpp
-    include/ScreenMovement.h
-    src/screenMovement.cpp
-    include/Dynamics.h
-    src/Dynamics.cpp
-    include/HUDItem.h
-    include/FuelMeter.h
-    src/FuelMeter.cpp
-    include/Minimap.h
-    src/Minimap.cpp
 )
 
 add_executable(
     Test
     src/RunTests.cpp
-    include/Game.h
-    src/Game.cpp
-    include/Util.h
-    include/Movable.h
-    src/Movable.cpp
-    include/MassiveMovable.h
-    src/MassiveMovable.cpp
-    include/ScreenMovement.h
-    src/screenMovement.cpp
-    include/Dynamics.h
-    src/Dynamics.cpp
-    include/HUDItem.h
-    include/FuelMeter.h
-    src/FuelMeter.cpp
-    include/Minimap.h
-    src/Minimap.cpp
 )
 
-target_link_libraries(3bp sfml-graphics sfml-audio)
-target_link_libraries(Test sfml-graphics sfml-audio ${GTEST_LIBRARY} ${GTEST_MAIN_LIBRARY} ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY})
+target_link_libraries(3bp-lib sfml-graphics)
+target_link_libraries(3bp sfml-graphics 3bp-lib)
+target_link_libraries(Test sfml-graphics ${GTEST_LIBRARY} ${GTEST_MAIN_LIBRARY} ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY} 3bp-lib)

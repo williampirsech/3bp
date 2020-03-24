@@ -8,16 +8,37 @@ class Movable  {
     
     public: 
 
-    explicit Movable(const std::shared_ptr<sf::Shape>);
+    explicit Movable(sf::VertexArray& vert);
 
-    std::shared_ptr<sf::Shape> getShape(void) const noexcept;
+    void setRotation(const Angle) noexcept;
+    void setPosition(const float, const float) noexcept;
+    void setPosition(const sf::Vector2f&) noexcept;
+    void setVelocity(const float, const float) noexcept;
+    void setMass(const Mass) noexcept;
+    
+    void rotate(const TimeDelta, const Angle) noexcept;
+    void moveForward(const TimeDelta) noexcept;
+    void addVelocity(const TimeDelta, const float, const float) noexcept;
+    void accelerate(const TimeDelta, const float) noexcept;
+    
+    const Coordinate getPosition() const noexcept;
+    const Angle getRotation() const noexcept;
+    const sf::VertexArray& getVertexArray() const noexcept;
+    const Mass getMass() const noexcept;
 
     protected:
+    sf::VertexArray& vert;
 
     private:
-
-    std::shared_ptr<sf::Shape> pShape;
     Velocity velocity;
+    sf::Vector2f center;
+    sf::Transform transform;
+    Angle angle;
+    Mass mass;
 
-    friend class ScreenMovement;
+    Coordinate position;
+
+    void _rotationUpdate() noexcept;
+
+    friend class Dynamics;
 };

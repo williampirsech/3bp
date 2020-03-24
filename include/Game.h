@@ -2,8 +2,6 @@
 
 #include "Util.h"
 #include "Movable.h"
-#include "MassiveMovable.h"
-#include "ScreenMovement.h"
 #include "Dynamics.h"
 #include "SFML/Graphics.hpp"
 #include "FuelMeter.h"
@@ -24,6 +22,5 @@ class Game {
     sf::RenderWindow window;
     sf::Texture directionTexture, backgroundTexture;
     sf::Sprite background;
-    ScreenMovement movement;
     Dynamics dynamics;
 };

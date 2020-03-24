@@ -8,7 +8,7 @@ Minimap::Minimap(const sf::RenderTarget& window, const Movable& player, sf::View
 }
 
 void Minimap::update() noexcept {
-    directionView.setCenter(player.getShape()->getPosition());
+    directionView.setCenter(player.getPosition());
 }
 
 void Minimap::show() noexcept {
@@ -20,5 +20,5 @@ void Minimap::hide() noexcept {
 }
 
 void Minimap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(*player.getShape());
+    target.draw(player.getVertexArray());
 };

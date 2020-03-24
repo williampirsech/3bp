@@ -4,7 +4,6 @@
 
 Game::Game(void) 
     : window()
-    , dynamics(movement)
 {}
 
 void Game::Draw(sf::Drawable& d) {
@@ -33,34 +32,39 @@ void Game::init()
 }
 
 void Game::run() {
+
+    sf::VertexArray triangle(sf::Triangles, 3);
+
+    // define the position of the triangle's points
+    triangle[0].position = sf::Vector2f(-5.f, 5.f);
+    triangle[1].position = sf::Vector2f(-5.f, -5.f);
+    triangle[2].position = sf::Vector2f(20.f, 0.f);
+
+    // define the color of the triangle's points
+    triangle[0].color = sf::Color::White;
+    triangle[1].color = sf::Color::White;
+    triangle[2].color = sf::Color::White;
     //Just a demo
     sf::Clock clock;
-    auto pS = std::make_shared<sf::ConvexShape>();
-    
-    pS->setPointCount(3);
-    pS->setPoint(0,sf::Vector2f(0,0));
-    pS->setPoint(1,sf::Vector2f(0,6));
-    pS->setPoint(2,sf::Vector2f(12,3));
-    pS->setFillColor(sf::Color(255,255,255));
 
-    Movable player(pS);
+    Movable player(triangle);
 
-    auto pT = std::make_shared<sf::CircleShape>(5);
-    auto pT2 = std::make_shared<sf::CircleShape>(80);
-    MassiveMovable planet(pT,0.005);
-    MassiveMovable sun(pT2,0.03);
+    auto sunV = planetMaker(40.f,80,sf::Color::White);
+    auto planetV = planetMaker(5.f,80,sf::Color::White);
+
+    Movable sun(sunV);
+    Movable planet(planetV);
+
+    player.setPosition(0.35,0.35);
+    player.setVelocity(0.1,0);
     
-    pT->setFillColor(sf::Color::White);
-    pT2->setFillColor(sf::Color::White);
+    sun.setMass(3.f);
+    sun.setPosition(100,100);
+    sun.setVelocity(0,0);
     
-    movement.setPosition(player,0.35,0.35);
-    movement.setVelocity(player,0.1,0);
-    
-    movement.setPosition(sun, 0.6,0.6);
-    movement.setVelocity(sun,0,0);
-    
-    movement.setPosition(planet, 0.1,0.1);
-    movement.setVelocity(planet,0.1,-0.1);
+    planet.setMass(0.2f);
+    planet.setPosition(50,50);
+    planet.setVelocity(0.1,-0.1);
 
     std::cout << window.getSize().x << "," << window.getSize().y  << std::endl;
     
@@ -72,8 +76,8 @@ void Game::run() {
     dynamics.add(sun);
     dynamics.add(planet);
 
-    sf::View gameView(player.getShape()->getPosition(),viewSize);
-    sf::View directionView(player.getShape()->getPosition(), sf::Vector2f(100,100));
+    sf::View gameView(player.getPosition(),viewSize);
+    sf::View directionView(player.getPosition(), sf::Vector2f(100,100));
     directionView.setViewport(sf::FloatRect(0.8f,0.8f,0.2f,0.2f));
 
     background.setScale(window.getSize().x/background.getGlobalBounds().width,window.getSize().y/background.getGlobalBounds().height);
@@ -94,21 +98,23 @@ void Game::run() {
         auto dt = clock.restart().asSeconds();
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-                movement.accelerate(player,dt,0.08);
+                player.accelerate(dt,0.08);
         }
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            movement.rotate(player,dt,-360);
+            player.rotate(dt,-360);
         }
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            movement.rotate(player,dt,+360);
+            player.rotate(dt,+360);
         }
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract)) {
             viewSize.x += viewRatio*viewIncrement;
             viewSize.y += viewIncrement;
             gameView.setSize(viewSize);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Add)) {
-            
                 viewSize.x -= viewRatio*viewIncrement;
                 viewSize.y -= viewIncrement;
                 gameView.setSize(viewSize);
@@ -116,7 +122,7 @@ void Game::run() {
 
         window.clear(sf::Color::Black);
         
-        gameView.setCenter(player.getShape()->getPosition());
+        gameView.setCenter(player.getPosition());
         
         window.setView(window.getDefaultView());
         
@@ -126,17 +132,16 @@ void Game::run() {
         
         window.setView(directionView);
         minimap.update();
-        window.draw(*player.getShape());
+        window.draw(player.getVertexArray());
 
-        
         dynamics.incrementSystem(dt);
-        
+
         window.setView(gameView);
         
         for (const auto& p : dynamics.getMovables()) {
-            window.draw(*(p->getShape()));
+            window.draw(p->getVertexArray());
         }
-        
+        window.draw(triangle);
         window.display();
     }
 }
