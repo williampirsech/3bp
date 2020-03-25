@@ -28,6 +28,7 @@ add_library(
     src/FuelMeter.cpp
     include/Minimap.h
     src/Minimap.cpp
+    include/Collision.h
 )
 
 add_executable(
@@ -39,7 +40,8 @@ add_executable(
 
 add_executable(
     Test
-    src/RunTests.cpp
+    src/Test/DynamicsTest.cpp
+    src/Test/CollisionTest.cpp
 )
 
 target_link_libraries(3bp-lib sfml-graphics)

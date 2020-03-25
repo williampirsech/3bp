@@ -8,6 +8,9 @@
 #include <algorithm>
 #include <utility>
 
+using std::min;
+using std::max;
+
 // Should probably wrap in a namespace Util::
 
 using Coordinate = sf::Vector2f;
@@ -33,6 +36,14 @@ inline sf::VertexArray planetMaker(float radius, int nVert, const sf::Color& col
         vert.color = color;
         va.append(vert);
     }
-    va.append(va[0]);
+    //va.append(va[0]);
     return va;
+}
+
+inline float dot(const sf::Vector2f& v1, const sf::Vector2f& v2) {
+    return v1.x*v2.x + v1.y*v2.y;
+}
+
+inline float project(const sf::Vector2f& vec1, const sf::Vector2f& vec2) noexcept {
+    return dot(vec1,vec2)/sqrt(dot(vec2,vec2));
 }

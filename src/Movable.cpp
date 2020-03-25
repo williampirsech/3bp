@@ -71,7 +71,6 @@ void Movable::accelerate(const TimeDelta dt, const float delta) noexcept {
     const auto a2r = D2R()*angle;
     velocity.x += dt*delta*cos(a2r);
     velocity.y += dt*delta*sin(a2r);
-
 }
 
 const sf::VertexArray& Movable::getVertexArray() const noexcept {

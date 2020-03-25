@@ -33,14 +33,11 @@ void Game::init()
 
 void Game::run() {
 
-    sf::VertexArray triangle(sf::Triangles, 3);
-
-    // define the position of the triangle's points
-    triangle[0].position = sf::Vector2f(-5.f, 5.f);
-    triangle[1].position = sf::Vector2f(-5.f, -5.f);
-    triangle[2].position = sf::Vector2f(20.f, 0.f);
-
-    // define the color of the triangle's points
+    sf::VertexArray triangle(sf::TriangleFan);
+    triangle.append(sf::Vector2f(-5.f, 5.f));
+    triangle.append(sf::Vector2f(-5.f, -5.f));
+    triangle.append(sf::Vector2f(20.f, 0.f));
+    
     triangle[0].color = sf::Color::White;
     triangle[1].color = sf::Color::White;
     triangle[2].color = sf::Color::White;

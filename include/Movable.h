@@ -41,4 +41,5 @@ class Movable  {
     void _rotationUpdate() noexcept;
 
     friend class Dynamics;
+    friend class Collision;
 };

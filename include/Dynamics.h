@@ -2,6 +2,7 @@
 
 #include "Util.h"
 #include "Movable.h"
+#include "Collision.h"
 
 class Dynamics {
     public:
