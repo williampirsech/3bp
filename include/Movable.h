@@ -40,7 +40,7 @@ class Movable  {
     Mass mass;
 
     void _rotationUpdate() noexcept;
-    float _radius2;
+    float _radius;
 
     friend class Dynamics;
     friend class Collision;

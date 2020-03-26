@@ -1,7 +1,7 @@
 #include "Collision.h"
 
 bool Collision::collidesWith_rad(const Movable& m1, const Movable& m2) {
-    return norm(m1.center-m2.center) < sqrt(m1._radius2) + sqrt(m2._radius2);
+    return norm(m1.center-m2.center) < m1._radius + m2._radius;
 }
 
 bool Collision::collidesWith_vertexSep(const Movable& m1, const Movable& m2) {

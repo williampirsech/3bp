@@ -16,7 +16,7 @@ Movable::Movable(sf::VertexArray& vert)
         , angle(0.f)
         , velocity(0,0)
         , mass(0)
-        , _radius2(0)
+        , _radius(0)
         , collidableState{CollidableState::Transparent}
 {
     for (int k=0; k<vert.getVertexCount(); ++k) {
@@ -25,7 +25,7 @@ Movable::Movable(sf::VertexArray& vert)
     }
     center *= 1.f/vert.getVertexCount();
     for (int k=0; k<vert.getVertexCount(); ++k) {
-        _radius2 = max(_radius2,norm2(vert[k].position-center));
+        _radius = max(_radius,norm(vert[k].position-center));
     }
 }
 
