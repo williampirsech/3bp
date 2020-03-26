@@ -69,6 +69,10 @@ void Game::run() {
     auto viewRatio = viewSize.x/viewSize.y;
     const size_t viewIncrement = 5;
     
+    player.collidableState = CollidableState::Rigid;
+    sun.collidableState = CollidableState::Rigid;
+    planet.collidableState = CollidableState::Rigid;
+
     dynamics.add(player);
     dynamics.add(sun);
     dynamics.add(planet);

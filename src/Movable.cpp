@@ -17,6 +17,7 @@ Movable::Movable(sf::VertexArray& vert)
         , velocity(0,0)
         , mass(0)
         , _radius2(0)
+        , collidableState{CollidableState::Transparent}
 {
     for (int k=0; k<vert.getVertexCount(); ++k) {
         center += vert[k].position;

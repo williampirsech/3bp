@@ -3,6 +3,7 @@
 #include "Util.h"
 #include "SFML/graphics.hpp"
 
+enum class CollidableState {Transparent, Rigid};
 
 class Movable  {
     
@@ -25,6 +26,8 @@ class Movable  {
     const Angle getRotation() const noexcept;
     const sf::VertexArray& getVertexArray() const noexcept;
     const Mass getMass() const noexcept;
+
+    CollidableState collidableState;
 
     protected:
     sf::VertexArray& vert;
