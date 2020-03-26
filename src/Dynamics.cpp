@@ -12,11 +12,11 @@ void Dynamics::incrementSystem(const TimeDelta dt) const noexcept {
     for (auto& elem : movables) {
         for (const auto& other : movables) {
             if (elem < other) {
-                if (elem < other && Collision::collidesWith(*elem, *other)) {
+                if (elem < other && Collision::collidesWith_rad(*elem,*other) && Collision::collidesWith(*elem, *other)) {
                     std::cout << "MASS(" << elem->mass << ") " << " collided with "  <<  "MASS(" << other->mass << ") " << "\n"; 
                 }
-                /*} else {
-                    std::cout << "MASS(" << elem->mass << ") " << " not colliding with "  <<  "MASS(" << other->mass << ") " << "\n"; 
+                /*if (elem < other &&  Collision::collidesWith(*elem, *other)) {
+                    std::cout << "MASS(" << elem->mass << ") " << " collided with "  <<  "MASS(" << other->mass << ") " << "\n"; 
                 }*/
             }
             

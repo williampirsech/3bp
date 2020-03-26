@@ -29,6 +29,7 @@ add_library(
     include/Minimap.h
     src/Minimap.cpp
     include/Collision.h
+    src/Collision.cpp
 )
 
 add_executable(

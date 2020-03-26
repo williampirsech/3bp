@@ -36,9 +36,8 @@ class Movable  {
     Angle angle;
     Mass mass;
 
-    Coordinate position;
-
     void _rotationUpdate() noexcept;
+    float _radius2;
 
     friend class Dynamics;
     friend class Collision;

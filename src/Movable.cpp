@@ -16,11 +16,16 @@ Movable::Movable(sf::VertexArray& vert)
         , angle(0.f)
         , velocity(0,0)
         , mass(0)
+        , _radius2(0)
 {
     for (int k=0; k<vert.getVertexCount(); ++k) {
         center += vert[k].position;
+        
     }
     center *= 1.f/vert.getVertexCount();
+    for (int k=0; k<vert.getVertexCount(); ++k) {
+        _radius2 = max(_radius2,norm2(vert[k].position-center));
+    }
 }
 
 void Movable::setRotation(Angle theta) noexcept {
