@@ -4,6 +4,7 @@
 #include "Collision.h"
 #include "Movable.h"
 #include "Util.h"
+#include "MovableCreator.h"
 
 // The fixture for testing class Foo.
 class CollisionTests : public ::testing::Test {
@@ -46,7 +47,6 @@ TEST_F(CollisionTests, BigSquareSmallTriangle) {
     ASSERT_TRUE(Collision::collidesWith_vertexSep(m1,m2));
     //m2.rotate(1,-1);
     //ASSERT_FALSE(Collision::collidesWith(m1,m2));
-
 }
 
 /*
@@ -79,8 +79,8 @@ TEST_F(CollisionTests, BigSquareSmallTriangleRotated) {
 }
 
 TEST_F(CollisionTests, NonCollisionPlanets) {
-    auto c1 = planetMaker(40.f,80,sf::Color::White);
-    auto c2 = planetMaker(5.f,80,sf::Color::White);
+    auto c1 = MovableCreator::planetMaker(40.f,80,sf::Color::White);
+    auto c2 = MovableCreator::planetMaker(5.f,80,sf::Color::White);
     Movable m1(c1), m2(c2);
     m1.setPosition(100,100);
     m2.setPosition(50,50);
@@ -130,8 +130,8 @@ TEST_F(CollisionTests, CollisionSquareTriangle) {
 
 // Nonollision radius test: two objects far apart
 TEST_F(CollisionTests, RadiusNonCollision) {
-    auto p1 = planetMaker(10,8, sf::Color::White);
-    auto p2 = planetMaker(10,8, sf::Color::White);
+    auto p1 = MovableCreator::planetMaker(10,8, sf::Color::White);
+    auto p2 = MovableCreator::planetMaker(10,8, sf::Color::White);
 
     Movable m1(p1), m2(p2);
     m1.setPosition(0,0); m2.setPosition(30,0);
@@ -140,8 +140,8 @@ TEST_F(CollisionTests, RadiusNonCollision) {
 
 // Collision radius test
 TEST_F(CollisionTests, RadiusCollision) {
-    auto p1 = planetMaker(10,8, sf::Color::White);
-    auto p2 = planetMaker(10,8, sf::Color::White);
+    auto p1 = MovableCreator::planetMaker(10,8, sf::Color::White);
+    auto p2 = MovableCreator::planetMaker(10,8, sf::Color::White);
 
     Movable m1(p1), m2(p2);
     m1.setPosition(0,0); m2.setPosition(8,0);

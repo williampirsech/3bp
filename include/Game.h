@@ -6,6 +6,7 @@
 #include "SFML/Graphics.hpp"
 #include "FuelMeter.h"
 #include "Minimap.h"
+#include "MovableCreator.h"
 
 class Game {
     public:

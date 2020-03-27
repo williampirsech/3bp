@@ -9,6 +9,7 @@ class Movable  {
     
     public: 
 
+    Movable();
     explicit Movable(sf::VertexArray& vert);
 
     void setRotation(const Angle) noexcept;
@@ -30,7 +31,7 @@ class Movable  {
     CollidableState collidableState;
 
     protected:
-    sf::VertexArray& vert;
+    sf::VertexArray vert;
 
     private:
     Velocity velocity;

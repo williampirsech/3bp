@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <utility>
 #include <limits>
+#include <fstream>
+#include <sstream>
 
 using std::min;
 using std::max;
@@ -31,19 +33,6 @@ inline float norm(const sf::Vector2f vec) {
 
 inline float norm2(const sf::Vector2f vec) {
     return (vec.x*vec.x+vec.y*vec.y);
-}
-
-
-inline sf::VertexArray planetMaker(float radius, int nVert, const sf::Color& color) {
-    sf::VertexArray va(sf::TriangleFan);
-    auto incr = PI2()/nVert;
-    for (int k=0; k<nVert; ++k) {
-        auto vert = sf::Vertex(sf::Vector2f(radius*cos(k*incr),radius*sin(k*incr)));
-        vert.color = color;
-        va.append(vert);
-    }
-    //va.append(va[0]);
-    return va;
 }
 
 inline float dot(const sf::Vector2f& v1, const sf::Vector2f& v2) {

@@ -32,34 +32,16 @@ void Game::init()
 }
 
 void Game::run() {
-
-    sf::VertexArray triangle(sf::TriangleFan);
-    /*triangle.append(sf::Vector2f(-5.f, -5.f));
-    triangle.append(sf::Vector2f(-5.f, +5.f));
-    triangle.append(sf::Vector2f(20.f, 0.f));
-    */
-    
-    triangle.append(sf::Vector2f(5.f, 5.f));
-    triangle.append(sf::Vector2f(5.f, +15.f));
-    triangle.append(sf::Vector2f(30.f, 10.f));
-
-    triangle[0].color = sf::Color::White;
-    triangle[1].color = sf::Color::White;
-    triangle[2].color = sf::Color::White;
     //Just a demo
     sf::Clock clock;
 
-    Movable player(triangle);
-
-    auto sunV = planetMaker(40.f,20,sf::Color::White);
-    auto planetV = planetMaker(5.f,20,sf::Color::White);
-
-    Movable sun(sunV);
-    Movable planet(planetV);
-
+    auto sun = MovableCreator::planetMaker(40.f,20,sf::Color::White);
+    auto planet = MovableCreator::planetMaker(5.f,20,sf::Color::White);
+    auto player = MovableCreator::create("spaceship.xml");
+    
     player.setPosition(0.35,0.35);
     player.setVelocity(0.1,0);
-    
+
     sun.setMass(3.f);
     sun.setPosition(100,100);
     sun.setVelocity(0,0);
@@ -147,7 +129,7 @@ void Game::run() {
         for (const auto& p : dynamics.getMovables()) {
             window.draw(p->getVertexArray());
         }
-        window.draw(triangle);
+        //window.draw(triangle);
         window.display();
     }
 }

@@ -13,7 +13,7 @@ bool Collision::collidesWith_vertexSep(const Movable& m1, const Movable& m2) {
         };
         auto proj1 = dot(m1.vert[0].position, ort); 
         auto proj2 = dot(m2.vert[0].position, ort);
-        auto comp = proj1 < proj2 ? +1 : -1;
+        short comp = proj1 < proj2 ? +1 : -1;
         int j=1;
         for (; j < m1.vert.getVertexCount() && comp*proj1 <= comp*proj2; ++j)
             proj1 = comp*max(comp*proj1, comp*dot(m1.vert[j].position,ort));
@@ -26,4 +26,4 @@ bool Collision::collidesWith_vertexSep(const Movable& m1, const Movable& m2) {
 
     }
     return true;
-} 
+}

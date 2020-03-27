@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.1)
 
 project(3bp)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
+
 ## If you want to link SFML statically
 set(SFML_STATIC_LIBRARIES TRUE)
 
@@ -10,10 +12,13 @@ set(SFML_STATIC_LIBRARIES TRUE)
 
 find_package(SFML 2.5.1 COMPONENTS graphics audio REQUIRED)
 
+find_package(RapidXML)
+
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
     ${GTEST_INCLUDE_DIR}
     ${GMOCK_ROOT}/include
+    ${RAPIDXML_INCLUDE_DIR}
 )
 
 add_library(
@@ -30,6 +35,8 @@ add_library(
     src/Minimap.cpp
     include/Collision.h
     src/Collision.cpp
+    include/MovableCreator.h
+    src/MovableCreator.cpp
 )
 
 add_executable(
@@ -37,6 +44,8 @@ add_executable(
     src/main.cpp
     include/Game.h
     src/Game.cpp
+    ${RAPIDXML_INCLUDE_DIR}/rapidxml.hpp
+    ${RAPIDXML_INCLUDE_DIR}/rapidxml_print.hpp
 )
 
 add_executable(

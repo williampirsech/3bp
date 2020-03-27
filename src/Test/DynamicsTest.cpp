@@ -2,6 +2,7 @@
 #include "gmock/gmock.h"
 #include "Dynamics.h"
 #include "Util.h"
+#include "MovableCreator.h"
 
 // The fixture for testing class Foo.
 class DynamicsTests : public ::testing::Test {
@@ -11,9 +12,6 @@ class DynamicsTests : public ::testing::Test {
 
   DynamicsTests()
   {
-      v1 = planetMaker(10,20,sf::Color::White);
-      v2 = planetMaker(10,20,sf::Color::White);
-
   }
 
   ~DynamicsTests() override {}
@@ -57,9 +55,9 @@ TEST_F(DynamicsTests, MassNoMassOneMovement) {
     const auto pos1 = sf::Vector2f(9.6,5.5);
     const auto pos2 = sf::Vector2f(11.3,12.4);
 
-    Movable movable1(v1);
+    Movable movable1 = MovableCreator::planetMaker(10,20,sf::Color::White);
     movable1.setPosition(pos1.x,pos2.y);
-    Movable massive(v2);
+    Movable massive = MovableCreator::planetMaker(10,20,sf::Color::White);
     massive.setMass(1);
     massive.setPosition(pos2);
     

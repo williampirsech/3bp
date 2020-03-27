@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Movable>
+
+    <VertexArray>
+        <item>
+            <x>5.0</x>
+            <y>5.0</y>
+        </item>
+        <item>
+            <x>5.0</x>
+            <y>15.0</y>
+        </item>
+        <item>
+            <x>30.0</x>
+            <y>10.0</y>
+        </item>
+
+    </VertexArray>
+
+</Movable>
