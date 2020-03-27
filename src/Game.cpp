@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-Game::Game(void) 
+Game::Game(void)
     : window()
 {}
 
@@ -34,10 +34,15 @@ void Game::init()
 void Game::run() {
 
     sf::VertexArray triangle(sf::TriangleFan);
-    triangle.append(sf::Vector2f(-5.f, 5.f));
-    triangle.append(sf::Vector2f(-5.f, -5.f));
+    /*triangle.append(sf::Vector2f(-5.f, -5.f));
+    triangle.append(sf::Vector2f(-5.f, +5.f));
     triangle.append(sf::Vector2f(20.f, 0.f));
+    */
     
+    triangle.append(sf::Vector2f(5.f, 5.f));
+    triangle.append(sf::Vector2f(5.f, +15.f));
+    triangle.append(sf::Vector2f(30.f, 10.f));
+
     triangle[0].color = sf::Color::White;
     triangle[1].color = sf::Color::White;
     triangle[2].color = sf::Color::White;
@@ -46,8 +51,8 @@ void Game::run() {
 
     Movable player(triangle);
 
-    auto sunV = planetMaker(40.f,80,sf::Color::White);
-    auto planetV = planetMaker(5.f,80,sf::Color::White);
+    auto sunV = planetMaker(40.f,20,sf::Color::White);
+    auto planetV = planetMaker(5.f,20,sf::Color::White);
 
     Movable sun(sunV);
     Movable planet(planetV);

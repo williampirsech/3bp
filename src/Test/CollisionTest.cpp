@@ -55,7 +55,7 @@ One of the edges in triangle forms clear separating line - should return false
 |      |
 |      |
 |      |
-|      | |> <--- rotate the triangle 180 degrees
+|      | |> <--- rotate the triangle 180 degrees from previous example
 |      |
 -------
 */

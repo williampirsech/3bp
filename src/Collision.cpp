@@ -13,13 +13,14 @@ bool Collision::collidesWith_vertexSep(const Movable& m1, const Movable& m2) {
         };
         auto proj1 = dot(m1.vert[0].position, ort); 
         auto proj2 = dot(m2.vert[0].position, ort);
+        auto comp = proj1 < proj2 ? +1 : -1;
         int j=1;
-        for (; j < m1.vert.getVertexCount() && proj1 <= proj2; ++j)
-            proj1 = max(proj1, dot(m1.vert[j].position,ort));
+        for (; j < m1.vert.getVertexCount() && comp*proj1 <= comp*proj2; ++j)
+            proj1 = comp*max(comp*proj1, comp*dot(m1.vert[j].position,ort));
         if (j == m1.vert.getVertexCount()) {
             j = 1;
-            for (; j < m2.vert.getVertexCount() && proj1 <= proj2; ++j)
-                proj2 = min(proj2, dot(m2.vert[j].position,ort));
+            for (; j < m2.vert.getVertexCount() && comp*proj1 <= comp*proj2; ++j)
+                proj2 = comp*min(comp*proj2, comp*dot(m2.vert[j].position,ort));
             if (j == m2.vert.getVertexCount()) return false;
         }  
 

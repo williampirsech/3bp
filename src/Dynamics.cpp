@@ -10,10 +10,21 @@ void Dynamics::add(Movable& movable) {
 
 void Dynamics::incrementSystem(const TimeDelta dt) const noexcept {   
     for (auto& elem : movables) {
-        for (const auto& other : movables) {
+        for (auto& other : movables) {
             if (elem < other) {
-                if (elem < other && Collision::collidesWith_rad(*elem,*other) && 
+                if (elem < other && 
                     (Collision::collidesWith_vertexSep(*elem, *other) || Collision::collidesWith_vertexSep(*other, *elem))) {
+                    std::cout << "MASS(" << elem->mass << ") " << " collided with "  <<  "MASS(" << other->mass << ") " << "\n";
+                    auto p = elem->center - other->center;
+                    auto d = norm(p);
+                    if (elem->collidableState == CollidableState::Rigid)
+                        elem->velocity += dt*p/d;
+                    if (other->collidableState == CollidableState::Rigid) 
+                        other->velocity -= dt*p/d;
+                }
+            }
+            /*if (elem < other) {
+                if (Collision::collidesWith_vertexSep(*elem, *other)) {
                     std::cout << "MASS(" << elem->mass << ") " << " collided with "  <<  "MASS(" << other->mass << ") " << "\n";
                     auto p = elem->center - other->center;
                     auto d = norm(p);
@@ -22,7 +33,7 @@ void Dynamics::incrementSystem(const TimeDelta dt) const noexcept {
                     if (other->collidableState == CollidableState::Rigid) 
                         other->velocity -= elem->mass*dt*p/d;
                 }
-            }
+            }*/
             
             if (other->mass != 0) {
                 _res = other->getPosition() - elem->getPosition();
